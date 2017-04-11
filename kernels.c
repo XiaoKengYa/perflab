@@ -46,9 +46,9 @@ char rotate_descr[] = "rotate: Current working version";
 void rotate(int dim, pixel *src, pixel *dst) 
 {
 	int i, j;
-	int buff = dim*dim;
+	int dea = dim*dim;
 	
-	dst += buff - dim;
+	dst += dea - dim;
 	for(i=0 ; i <dim ; i +=32){
 	
 		for(j = 0; j < dim; j++){
@@ -150,7 +150,7 @@ void rotate(int dim, pixel *src, pixel *dst)
 			dst -= dim;
 			src -=dim*31 - 1;
 		}
-		dst += 32+buff;
+		dst += 32+dea;
 		src += dim*31;
 	}
 	return;
@@ -258,7 +258,7 @@ void naive_smooth(int dim, pixel *src, pixel *dst)
 char smooth_descr[] = "smooth: Current working version";
 void smooth(int dim, pixel *src, pixel *dst) 
 {
-	int i, j, myJ;
+	int i, j, theJ;
     //four corners
 	dst[0].red = (src[0].red + src[1].red + src[dim+1].red + src[dim].red)>>2;
 	dst[0].blue = (src[0].blue + src[1].blue + src[dim].blue + src[dim+1].blue)>>2;
@@ -312,18 +312,18 @@ void smooth(int dim, pixel *src, pixel *dst)
         	dst[j].blue = (src[j].blue + src[j-dim].blue + src[j+1].blue + src[j+dim].blue + src[j+1+dim].blue + src[j-dim+1].blue)/6;
 	}
     
-    	myJ = dim;
+    	theJ = dim;
 
     	for (i = 1; i < dim-1; i++)
     	{
 		for (j = 1; j < dim-1; j++)
 	    	{
-            		myJ ++;
-            		dst[myJ].red = (src[myJ-1].red + src[myJ].red + src[myJ+1].red + src[myJ-dim-1].red + src[myJ-dim].red + src[myJ-dim+1].red + src[myJ+dim-1].red + src[myJ+dim].red + src[myJ+dim+1].red)/9;
-           		dst[myJ].green = (src[myJ-1].green + src[myJ].green + src[myJ+1].green + src[myJ-dim-1].green + src[myJ-dim].green + src[myJ-dim+1].green + src[myJ+dim-1].green + src[myJ+dim].green + src[myJ+dim+1].green)/9;
-            		dst[myJ].blue = (src[myJ-1].blue + src[myJ].blue + src[myJ+1].blue + src[myJ-dim-1].blue + src[myJ-dim].blue + src[myJ-dim+1].blue + src[myJ+dim-1].blue + src[myJ+dim].blue + src[myJ+dim+1].blue)/9;
+            		theJ ++;
+            		dst[theJ].red = (src[theJ-1].red + src[theJ].red + src[theJ+1].red + src[theJ-dim-1].red + src[theJ-dim].red + src[theJ-dim+1].red + src[theJ+dim-1].red + src[theJ+dim].red + src[theJ+dim+1].red)/9;
+           		dst[theJ].green = (src[theJ-1].green + src[theJ].green + src[theJ+1].green + src[theJ-dim-1].green + src[theJ-dim].green + src[theJ-dim+1].green + src[theJ+dim-1].green + src[theJ+dim].green + src[theJ+dim+1].green)/9;
+            		dst[theJ].blue = (src[theJ-1].blue + src[theJ].blue + src[theJ+1].blue + src[theJ-dim-1].blue + src[theJ-dim].blue + src[theJ-dim+1].blue + src[theJ+dim-1].blue + src[theJ+dim].blue + src[theJ+dim+1].blue)/9;
         	}
-        	myJ += 2;
+        	theJ += 2;
     	}
 }
 
